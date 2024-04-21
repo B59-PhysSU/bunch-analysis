@@ -25,3 +25,10 @@ This will bring up the following UI:
 
 
 ![Group extract GUI](static/group_extract.png)
+
+
+#### Basic Usage
+
+1. Click the **Browse** button for the **input_path** field at the top and select the trajectory.
+
+2. Press **Start**
