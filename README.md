@@ -5,7 +5,7 @@
 To install the dependencies for all scripts run in a terminal:
 
 ```shell
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## group_extract.py
