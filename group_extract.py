@@ -35,6 +35,17 @@ class ExtractedPeak:
             {"x": self.x_values, "h": self.h_values, "m": self.m_values}
         )
 
+    def get_recaled_peak(self):
+        x = self.x_values - self.x_values[0]
+        h = self.h_values - self.h_values[0]
+        m = self.m_values - self.m_values[0]
+        return ExtractedPeak(x, h, m)
+
+    def rescale_inplace(self) -> None:
+        self.x_values = self.x_values - self.x_values[0]
+        self.h_values = self.h_values - self.h_values[0]
+        self.m_values = self.m_values - self.m_values[0]
+
 
 def load_fortran_format_as_pandas(filename):
     with open(filename, "r") as f:
@@ -50,14 +61,14 @@ def load_fortran_format_as_pandas(filename):
 def extract_peak_positions(peaks, width_data, max_data_len) -> List[Peak]:
     assert peaks.shape[0] == width_data[2].shape[0] == width_data[3].shape[0]
     peaks = []
-    for l, r in zip(width_data[2], width_data[3]):
+    for left, right in zip(width_data[2], width_data[3]):
         # round l and r to integers
-        l = int(round(l))
-        r = int(round(r)) + 1
+        left = int(round(left))
+        right = int(round(right)) + 1
         # make sure l and r are in bounds
-        l = max(0, l)
-        r = min(max_data_len, r)
-        peaks.append(Peak(peak_idx=l, left_idx=l, right_idx=r))
+        left = max(0, left)
+        right = min(max_data_len, right)
+        peaks.append(Peak(peak_idx=left, left_idx=left, right_idx=right))
     return peaks
 
 
@@ -89,6 +100,12 @@ def run(args):
     for i, ep in enumerate(extracted_peaks):
         file_path = os.path.join(args.output_dir, f"{args.prefix}_{i}.csv")
         ep.to_dataframe().to_csv(file_path, index=False)
+        print("Saved file to: ", file_path)
+        rescaled_file_path = os.path.join(
+            args.output_dir, f"rescaled_{args.prefix}_{i}.csv"
+        )
+        ep.get_recaled_peak().to_dataframe().to_csv(rescaled_file_path, index=False)
+        print("Saved rescaled file to: ", rescaled_file_path)
 
 
 @Gooey
