@@ -10,7 +10,7 @@ from scipy.signal import find_peaks, peak_widths
 
 
 @dataclass
-class Peak:
+class PeakSpan:
     peak_idx: int
     left_idx: int
     right_idx: int
@@ -23,7 +23,7 @@ class ExtractedPeak:
     m_values: np.ndarray
 
     @staticmethod
-    def from_peak(peak: Peak, all_x, all_h, all_m):
+    def from_peak(peak: PeakSpan, all_x, all_h, all_m):
         return ExtractedPeak(
             x_values=all_x[peak.left_idx : peak.right_idx].to_numpy(),
             h_values=all_h[peak.left_idx : peak.right_idx].to_numpy(),
@@ -48,7 +48,7 @@ class ExtractedPeak:
 
 
 def load_fortran_format_as_pandas(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="ascii") as f:
         parsed_table = []
         for line in f:
             split = line.split()
@@ -58,7 +58,7 @@ def load_fortran_format_as_pandas(filename):
     return pd.DataFrame(parsed_table, columns=header)
 
 
-def extract_peak_positions(peaks, width_data, max_data_len) -> List[Peak]:
+def extract_peak_positions(peaks, width_data, max_data_len) -> List[PeakSpan]:
     assert peaks.shape[0] == width_data[2].shape[0] == width_data[3].shape[0]
     peaks = []
     for left, right in zip(width_data[2], width_data[3]):
@@ -68,7 +68,7 @@ def extract_peak_positions(peaks, width_data, max_data_len) -> List[Peak]:
         # make sure l and r are in bounds
         left = max(0, left)
         right = min(max_data_len, right)
-        peaks.append(Peak(peak_idx=left, left_idx=left, right_idx=right))
+        peaks.append(PeakSpan(peak_idx=left, left_idx=left, right_idx=right))
     return peaks
 
 
