@@ -2,13 +2,56 @@
 
 ## General (Start here)
 
-To install the dependencies for all scripts run in a terminal:
+### Installing git
+
+If you don't have git installed you can download and install it from the official
+website here:
+
+https://git-scm.com/downloads
+
+### Windows (Powershell)
+
+1. Clone the repository:
+
+```shell
+git clone https://github.com/B59-PhysSU/bunch-analysis.git $env:USERPROFILE\bunch-analysis
+```
+
+2. Change to the directory of the cloned repo:
+
+```shell
+cd $env:USERPROFILE\bunch-analysis
+```
+
+3. Install the dependencies for all scripts by running in a terminal:
+
+```shell
+pip install -r requirements.txt
+```
+
+### Linux (Bash)
+
+1. Clone the repository:
+
+```shell
+git clone https://github.com/B59-PhysSU/bunch-analysis.git ~/bunch-analysis
+```
+
+2. Change to the directory of the cloned repo:
+
+```shell
+cd ~/bunch-analysis
+```
+
+3. Install the dependencies for all scripts by running in a terminal:
 
 ```shell
 pip install -r requirements.txt
 ```
 
 ## group_extract.py
+
+**Make sure you've read the general section first!**
 
 Given a trajectory (**a table with columns x, h, m in fixed-width Fortran format**)
 this script identifies all bunches and saves them as CSVs to analyze later.
