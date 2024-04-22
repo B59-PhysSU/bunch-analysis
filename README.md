@@ -1,4 +1,4 @@
-# Bunch analysys
+# Bunch analysis
 
 ## General (Start here)
 
