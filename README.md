@@ -90,7 +90,7 @@ If you do not want to run in GUI mode (for automation purposes for example), you
 using the following command:
 
 ```shell
-$ python .\group_extract.py --ignore-gooey --help
+$ python ./group_extract.py --ignore-gooey --help
 usage: group_extract.py [-h] [-o OUTPUT_DIR] [-p PREFIX] [-t THRESHOLD] input_path
 
 Extract peaks from data and save as CSV files.
