@@ -46,8 +46,12 @@ cd ~/bunch-analysis
 3. Install the dependencies for all scripts by running in a terminal:
 
 ```shell
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
+
+> Note: from here on, for brevity, python and pip are used as the names of the python interpreter
+> and the respective package manager. If you are running on linux substitute python with python3
+> and pip with pip3.
 
 ## group_extract.py
 
