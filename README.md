@@ -55,7 +55,7 @@ pip install -r requirements.txt
 
 Given a trajectory (**a table with columns x, h, m in fixed-width Fortran format**)
 this script identifies all bunches and saves them as CSVs to analyze later.
-Bunches are saved both "as-is" and with x rescaled to zero versions 
+Bunches are saved both "as-is" and with x, h,m shifted to zero versions
 of themselves.
 
 ### How to use
