@@ -1,9 +1,10 @@
 import argparse
 import os
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from pathlib import Path
+
 import group_extract as ge
 
 
@@ -18,17 +19,17 @@ def run(args: argparse.Namespace) -> None:
         print("Error: Input file does not exist.")
         return
     os.makedirs(args.output_dir, exist_ok=True)
-    
+
     df = ge.load_fortran_format_as_pandas(args.input_path)
     extracted_peaks = ge.extract_peaks(df, rel_height=args.threshold)
     num_steps = [count_unique_heights(peak) for peak in extracted_peaks]
-    
+
     print("Total number of steps: ", sum(num_steps))
     counts, bins = np.histogram(num_steps, bins="auto")
     plt.stairs(counts, bins, fill=True)
     file_name = Path(args.input_path).stem + "_histogram.png"
     plt.savefig(os.path.join(args.output_dir, file_name), dpi=300)
-    
+
     if args.show_plot:
         plt.show()
 
